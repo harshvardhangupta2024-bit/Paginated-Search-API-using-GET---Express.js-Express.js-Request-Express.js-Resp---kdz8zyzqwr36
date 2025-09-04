@@ -8,6 +8,9 @@ const allArticles = JSON.parse(fs.readFileSync('./db.json', 'utf-8'));
 
 app.get('/search', (req, res) => {
   let {name,limit,page} = req.query;
+  if(name==undefined || name.trim().length===0){
+    return res.status(400).json({ "error": "Search name parameter is required." })
+  }
   if (limit==undefined){
     limit = 5
   }
