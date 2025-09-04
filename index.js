@@ -7,8 +7,25 @@ const port = 3000;
 const allArticles = JSON.parse(fs.readFileSync('./db.json', 'utf-8'));
 
 app.get('/search', (req, res) => {
+  let {name,limit,page} = req.query;
+  if (limit==undefined){
+    limit = 5
+  }
+  if (page==undefined){
+    page=1
+  }
 
- // TODO: Implement the search and pagination logic here
+  const filtered = allArticles.filter((val)=>{
+    return val["title"].toLowerCase().includes(name.toLowerCase());
+  })
+
+  res.status(200).json({
+  "currentPage": page,
+  "totalPages": Math.ceil(filtered.length/limit),
+  "totalResults": filtered.length,
+  "articles": filtered
+})
+ 
 
 
 });
