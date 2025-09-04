@@ -24,13 +24,10 @@ app.get('/search', (req, res) => {
 
   res.status(200).json({
   "currentPage": page,
-  "totalPages": Math.ceil(filtered.length/limit),
+  "totalPages": Math.ceil(filtered.length/Number(limit)),
   "totalResults": filtered.length,
   "articles": filtered
 })
- 
-
-
 });
 
 
